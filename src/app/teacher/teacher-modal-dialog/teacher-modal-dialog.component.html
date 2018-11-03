@@ -1,0 +1,16 @@
+<form [formGroup]="teacherForm">
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="First name" formControlName="first_name">
+  </mat-form-field>
+  <mat-form-field class="full-width"> 
+    <input matInput placeholder="Last name" formControlName="last_name">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Full name" formControlName="full_name">
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true">Cancel</button>
+    <button mat-button color="primary" [disabled]="teacherForm.invalid" (click)="Submit()">Submit</button>
+  </div>
+</form>
