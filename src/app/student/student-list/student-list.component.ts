@@ -24,6 +24,7 @@ export class StudentListComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
+    private alert: AlertService
   ) { }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class StudentListComponent implements OnInit {
   }
 
   addNewStudent() {
-    this.dialog.open(StudentModalDialogComponent).afterClosed().subscribe(result => console.log(result));
+    this.dialog.open(StudentModalDialogComponent).afterClosed().subscribe(result => console.log(result) );
   }
   updateStudent(student) {
     this.dialog.open(StudentModalDialogComponent, {
@@ -39,10 +40,11 @@ export class StudentListComponent implements OnInit {
     }).afterClosed().subscribe(result => console.log(result));
 
   }
-  deleteStudent() {
-  this.dialog.open(DeleteConfirmationDialogComponent).afterClosed().subscribe(result => console.log('Canceled'));
+  deleteStudent(): void {
+  this.dialog.open(DeleteConfirmationDialogComponent).afterClosed().subscribe (result => {
+    if (result) {this.alert.error('Student was deleted'); } else { console.log('canceled'); }
+   });
   }
-
   private async loadStudents() {
     this.students = await this.studentService.getAllStudents();
     this.setDataSource(this.students);

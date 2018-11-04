@@ -4,6 +4,7 @@ import { TeacherService } from '../core/teacher.service';
 import { TeacherModel } from '../core/teacher.model';
 import { TeacherModalDialogComponent } from '../teacher-modal-dialog/teacher-modal-dialog.component';
 import { DeleteConfirmationDialogComponent } from 'src/app/shared/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class TeacherListComponent implements OnInit {
 
   constructor(
     private teacherService: TeacherService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private alert: AlertService
   ) { }
 
   ngOnInit() {
@@ -40,7 +42,9 @@ export class TeacherListComponent implements OnInit {
     }).afterClosed().subscribe(result => console.log(result));
   }
   deleteTeacher() {
-  this.dialog.open(DeleteConfirmationDialogComponent).afterClosed().subscribe(result => console.log('Canceled'));
+    this.dialog.open(DeleteConfirmationDialogComponent).afterClosed().subscribe (result => {
+      if (result) {this.alert.error('Teacher was deleted'); } else { console.log('canceled'); }
+     });
   }
 
   private async loadTeachers() {

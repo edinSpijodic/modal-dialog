@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { AlertService } from '../alert/alert.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -10,15 +10,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class DeleteConfirmationDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
-    private alert: AlertService) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    ) {
    }
 
   ngOnInit() {
   }
 
   delete() {
-    this.dialogRef.close();
-    this.alert.info('This entry is deleted');
+  this.dialogRef.close('this was deleted');
   }
 }
